@@ -1,0 +1,10 @@
+apm-server:
+  host: "0.0.0.0:8200"
+  rum:
+    enabled: true
+  ilm:
+    enabled: false  # Set to true if you want ILM to manage the APM Server index
+  output.elasticsearch:
+    hosts: ["http://elasticsearch:9200"]
+    username: "apm_system"
+    password: "changeme"

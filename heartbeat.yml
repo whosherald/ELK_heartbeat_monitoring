@@ -1,0 +1,32 @@
+heartbeat.monitors:
+  - type: http
+    schedule: '@every 10s'
+    urls:
+      - https://monitoring.noble-mutuwa.com
+    name: Noble server
+    check.request:
+      method: GET
+      headers:
+        'Content-Type': 'application/json'
+    check.response:
+      status:
+        - 200
+        - 301
+        - 302
+
+output.elasticsearch:
+  hosts: http://elasticsearch:9200
+  username: elastic
+  password: changeme
+  index: "heartbeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+  # ssl.enabled: true
+  # ssl.certificate_authorities: "/usr/share/heartbeat/certs/ca/ca.crt"
+
+# setup.kibana:
+#   host: ${KIBANA_HOSTS}
+  # username: ${ELASTIC_USER}
+  # password: ${ELASTIC_PASSWORD}
+
+# Additional settings for index template
+setup.template.name: "heartbeat"
+setup.template.pattern: "heartbeat-*"
